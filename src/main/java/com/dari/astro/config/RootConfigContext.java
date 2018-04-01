@@ -21,7 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
-@ComponentScan/*({ "com.contact.mgmt.service","com.contact.mgmt.dao", "com.contact.mgmt.mappers" })*/
+@ComponentScan({ "com.dari.astro.service","com.dari.astro.repo", "com.dari.astro.mappers" })
 @Configuration
 @EnableScheduling
 @PropertySource(value = { "classpath:application.properties" })
@@ -54,7 +54,7 @@ public class RootConfigContext {
 	public SessionFactory sessionFactory() {
 		LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
 		lsfb.setDataSource(getDataSource());
-		lsfb.setPackagesToScan(new String[] {"com.contact.mgmt.bos","com.contact.mgmt.sharedbos"});
+		lsfb.setPackagesToScan(new String[] {"com.dari.astro.bos"});
 		lsfb.setHibernateProperties(hibernateProperties());
 		try {
 			lsfb.afterPropertiesSet();
