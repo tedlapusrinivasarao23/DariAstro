@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.dari.astro.bos.LoginUserDetails;
 import com.dari.astro.bos.SignUpUser;
 import com.dari.astro.queries.DariAstroQueries;
+import com.dari.astro.utils.ForgotPassword;
 import com.dari.astro.utils.LoginUser;
 import com.dari.astro.utils.LogoutUser;
 import com.dari.astro.utils.UpdatePassword;
@@ -81,5 +82,16 @@ public class DariAstroRepo {
 		hibernateTemplate.flush();
 		hibernateTemplate.clear();
 		return signUpUsertList;
+	}
+	
+	public SignUpUser getSignUpContactByEmailIdAndPhoneNumber(ForgotPassword forgotPassword) {
+
+		SignUpUser signUpUserList = (SignUpUser) hibernateTemplate
+				.find(DariAstroQueries.SIGNUP_QUERY_BY_EMAILID_OR_PHONENUMBER,
+						new Object[] { forgotPassword.getOwnerEmailId(), forgotPassword.getPhoneNumber() })
+				.get(0);
+		hibernateTemplate.flush();
+		hibernateTemplate.clear();
+		return signUpUserList;
 	}
 }
