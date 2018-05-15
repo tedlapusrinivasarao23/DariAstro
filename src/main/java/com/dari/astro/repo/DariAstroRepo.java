@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.dari.astro.bos.BirthChartDetails;
 import com.dari.astro.bos.LoginUserDetails;
 import com.dari.astro.bos.SignUpUser;
 import com.dari.astro.queries.DariAstroQueries;
@@ -93,5 +94,19 @@ public class DariAstroRepo {
 		hibernateTemplate.flush();
 		hibernateTemplate.clear();
 		return signUpUserList;
+	}
+	
+	public BirthChartDetails getBirthChartByNumberAndEmailAndId(String ownerNumber,String OwnerEmail,int id) {
+		BirthChartDetails birthChartDetails = (BirthChartDetails) hibernateTemplate
+				.find(DariAstroQueries.GET_BIRTHCHART_BY_OWNERNUMBER_AND_OWNEREMAIL_AND_ID, new Object[] {ownerNumber,OwnerEmail,id}).get(0);
+		return birthChartDetails;
+	}
+
+	public List<BirthChartDetails> getBirthChartByOwnerNumberOrOwnerEmail(String ownerNumber, String ownerEmail) {
+		List<BirthChartDetails> birthChartDetailsList = (List<BirthChartDetails>) hibernateTemplate
+				.find(DariAstroQueries.GET_BIRTHCHART_BY_OWNERNUMBER_OR_OWNEREMAIL, new Object[] { ownerNumber, ownerEmail });
+		hibernateTemplate.flush();
+		hibernateTemplate.clear();
+		return birthChartDetailsList;
 	}
 }

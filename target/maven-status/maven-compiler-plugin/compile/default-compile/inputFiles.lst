@@ -5,6 +5,7 @@ E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\Bi
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\LogoutUser.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\LoginResponse.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\SignUpUser.java
+E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\DeleteMultipleBirthCharts.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\LoginUser.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\mappers\SendEmail.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\mappers\SendSms.java
@@ -22,4 +23,5 @@ E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\config
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\mappers\DariTimeMappers.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\BirthChartResultResponse.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\LogoutResponse.java
+E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\BirthChartComparator.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\UpdatePassword.java

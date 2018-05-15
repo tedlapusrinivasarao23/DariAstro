@@ -1,6 +1,7 @@
 com\dari\astro\mappers\SendEmail$1.class
 com\dari\astro\mappers\SendSms.class
 com\dari\astro\queries\DariAstroQueries.class
+com\dari\astro\utils\BirthChartComparator.class
 com\dari\astro\utils\BirthChartResultResponse.class
 com\dari\astro\repo\DariAstroRepo.class
 com\dari\astro\config\WebMvcConfig.class
@@ -17,6 +18,7 @@ com\dari\astro\config\RootConfigContext.class
 com\dari\astro\utils\LoginUser.class
 com\dari\astro\repo\DariAstroCRUD.class
 com\dari\astro\utils\AddMultipleBirthChartDetails.class
+com\dari\astro\utils\DeleteMultipleBirthCharts.class
 com\dari\astro\utils\ResultResponse.class
 com\dari\astro\bos\Events.class
 com\dari\astro\mappers\DariTimeMappers.class
