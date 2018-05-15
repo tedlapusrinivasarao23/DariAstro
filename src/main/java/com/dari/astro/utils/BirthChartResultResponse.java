@@ -11,6 +11,7 @@ public class BirthChartResultResponse {
 	private String result;
 	private String status;
 	private List<String> unAddedbirthCharts;
+	private List<String> unEditedBirthCharts;
 	
 	public BirthChartDetails getBirthChartDetails() {
 		return birthChartDetails;
@@ -44,6 +45,13 @@ public class BirthChartResultResponse {
 	public void setUnAddedbirthCharts(List<String> unAddedbirthCharts) {
 		this.unAddedbirthCharts = unAddedbirthCharts;
 	}
+	public List<String> getUnEditedBirthCharts() {
+		return unEditedBirthCharts;
+	}
+	public void setUnEditedBirthCharts(List<String> unEditedBirthCharts) {
+		this.unEditedBirthCharts = unEditedBirthCharts;
+	}
+	
 	
 	
 

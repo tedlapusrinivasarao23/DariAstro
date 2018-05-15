@@ -1,6 +1,7 @@
 package com.dari.astro.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +19,9 @@ import com.dari.astro.mappers.SendSms;
 import com.dari.astro.repo.DariAstroCRUD;
 import com.dari.astro.repo.DariAstroRepo;
 import com.dari.astro.utils.AddMultipleBirthChartDetails;
+import com.dari.astro.utils.BirthChartComparator;
 import com.dari.astro.utils.BirthChartResultResponse;
+import com.dari.astro.utils.DeleteMultipleBirthCharts;
 import com.dari.astro.utils.ForgotPassword;
 import com.dari.astro.utils.LoginResponse;
 import com.dari.astro.utils.LoginUser;
@@ -100,7 +103,9 @@ public class DariAstroService {
 					.getCheckForFirstLogin(loginUser.getPhoneNumber(), loginUser.getEmailId());
 
 			if ((signUpUserList.getPassword().equals(loginUser.getPassword())
-					&& signUpUserList.getIsActive().equalsIgnoreCase("NO")) || ((signUpUserList.getPassword().equals(loginUser.getPassword()) && (signUpUserList.getSignupDeviceID().equalsIgnoreCase(loginUser.getLoginDeviceID())) ))) {
+					&& signUpUserList.getIsActive().equalsIgnoreCase("NO"))
+					|| ((signUpUserList.getPassword().equals(loginUser.getPassword())
+							&& (signUpUserList.getSignupDeviceID().equalsIgnoreCase(loginUser.getLoginDeviceID()))))) {
 
 				LoginUserDetails loginUserDetails = new LoginUserDetails();
 
@@ -203,8 +208,7 @@ public class DariAstroService {
 		return resultResponse;
 
 	}
-	
-	
+
 	@Transactional
 	public ResultResponse forgotPassword(ForgotPassword forgotPassword) {
 
@@ -248,7 +252,7 @@ public class DariAstroService {
 		}
 
 	}
-	
+
 	@Transactional
 	public ResultResponse forgotPasswordDBUpdate(UpdatePassword updatePassword) {
 
@@ -276,7 +280,7 @@ public class DariAstroService {
 		return resultResponse;
 
 	}
-	
+
 	@Transactional
 	public ResultResponse profileUpdatation(SignUpUser signUpUser) {
 
@@ -284,18 +288,19 @@ public class DariAstroService {
 		SignUpUser contactSignUp = new SignUpUser();
 
 		SignUpUser contact = dariAstroRepo.getSignUpContactByPhoneNumber(signUpUser);
-		
+
 		contact.setImage(signUpUser.getImage());
 		contact.setUserName(signUpUser.getUserName());
-		
 
-		/*contactSignUp.setSignUpId(contact.getSignUpId());
-		contactSignUp.setImage(signUpUser.getImage());
-		contactSignUp.setUserName(signUpUser.getUserName());
-		contactSignUp.setPassword(contact.getPassword());
-		contactSignUp.setPaid(contact.isPaid());
-		contactSignUp.setPhoneNumber(contact.getPhoneNumber());
-		contactSignUp.setEmailId(contact.getEmailId());*/
+		/*
+		 * contactSignUp.setSignUpId(contact.getSignUpId());
+		 * contactSignUp.setImage(signUpUser.getImage());
+		 * contactSignUp.setUserName(signUpUser.getUserName());
+		 * contactSignUp.setPassword(contact.getPassword());
+		 * contactSignUp.setPaid(contact.isPaid());
+		 * contactSignUp.setPhoneNumber(contact.getPhoneNumber());
+		 * contactSignUp.setEmailId(contact.getEmailId());
+		 */
 
 		dariAstroCRUD.methodForUpdate(contact);
 
@@ -317,7 +322,7 @@ public class DariAstroService {
 		birthChartResultResponse.setBirthChartDetails(getBirthChartById(birthChartDetails.getId()));
 		return birthChartResultResponse;
 	}
-	
+
 	@Transactional
 	public BirthChartDetails getBirthChartById(int id) {
 		BirthChartDetails birthChartDetails = null;
@@ -327,26 +332,25 @@ public class DariAstroService {
 			return null;
 		}
 		return birthChartDetails;
-		
+
 	}
-	
 
 	@Transactional
 	public BirthChartResultResponse addMultipleBirthChart(AddMultipleBirthChartDetails addMultipleBirthChartDetails) {
-		
-		List<BirthChartDetails>  birthChartDetailsList = addMultipleBirthChartDetails.getBirthChartDetailsList();
-		
+
+		List<BirthChartDetails> birthChartDetailsList = addMultipleBirthChartDetails.getBirthChartDetailsList();
+
 		List<BirthChartDetails> birthChartDetailsListNew = new ArrayList<BirthChartDetails>();
-		
-		List<String> unaddedBirthCharts =new ArrayList<String>();
-		
+
+		List<String> unaddedBirthCharts = new ArrayList<String>();
+
 		BirthChartResultResponse birthChartResultResponse = new BirthChartResultResponse();
 
 		for (BirthChartDetails birthChartDetails : birthChartDetailsList) {
 			BirthChartResultResponse birthChartResultResponse1 = addBirthChart(birthChartDetails);
 			if (birthChartResultResponse1.getResult().equalsIgnoreCase("BirthChart Successfully Saved")) {
 				birthChartDetailsListNew.add(birthChartResultResponse1.getBirthChartDetails());
-			}else {
+			} else {
 				unaddedBirthCharts.add(birthChartDetails.getBirth_ID());
 			}
 		}
@@ -356,6 +360,107 @@ public class DariAstroService {
 		birthChartResultResponse.setUnAddedbirthCharts(unaddedBirthCharts);
 		return birthChartResultResponse;
 	}
-	
+
+	@Transactional
+	public BirthChartResultResponse editBirthChart(BirthChartDetails birthChartDetails) {
+		BirthChartResultResponse birthChartResultResponse = new BirthChartResultResponse();
+		try {
+			dariAstroCRUD.methodForUpdate(birthChartDetails);
+			birthChartResultResponse.setStatus("true");
+			birthChartResultResponse.setResult("BirthChart Updated Sucessfully");
+			return birthChartResultResponse;
+		} catch (Exception e) {
+			birthChartResultResponse.setStatus("false");
+			birthChartResultResponse.setResult("BirthChart Not Updated");
+			return birthChartResultResponse;
+		}
+
+	}
+
+	@Transactional
+	public BirthChartResultResponse editMultipleBirthChart(AddMultipleBirthChartDetails addMultipleBirthChartDetails) {
+
+		BirthChartResultResponse birthChartResultResponse = new BirthChartResultResponse();
+		List<BirthChartDetails> birthChartDetailsListNew = new ArrayList<BirthChartDetails>();
+
+		List<String> unEditedBirthCharts = new ArrayList<String>();
+
+		List<BirthChartDetails> birthChartDetailsList = addMultipleBirthChartDetails.getBirthChartDetailsList();
+
+		for (BirthChartDetails birthChartDetailsLocal : birthChartDetailsList) {
+			birthChartResultResponse = editBirthChart(birthChartDetailsLocal);
+			if (birthChartResultResponse.getResult().equalsIgnoreCase("BirthChart Updated Sucessfully")) {
+				birthChartDetailsListNew.add(birthChartResultResponse.getBirthChartDetails());
+			} else {
+				unEditedBirthCharts.add(birthChartDetailsLocal.getBirth_ID());
+			}
+		}
+		birthChartResultResponse.setStatus("true");
+		birthChartResultResponse.setResult("BirthChart Updated Sucessfully");
+		birthChartResultResponse.setBirthChartDetailsList(birthChartDetailsListNew);
+		birthChartResultResponse.setUnEditedBirthCharts(unEditedBirthCharts);
+		return birthChartResultResponse;
+	}
+
+	@Transactional
+	public ResultResponse deleteBirthChart(String ownerNumber, String ownerEmail, int birthChartid) {
+		ResultResponse resultResponse = new ResultResponse();
+		try {
+			BirthChartDetails birthChartDetails = dariAstroRepo.getBirthChartByNumberAndEmailAndId(ownerNumber,
+					ownerEmail, birthChartid);
+			dariAstroCRUD.methodForDelete(birthChartDetails);
+
+			resultResponse.setStatus("true");
+			resultResponse.setResult("BirthChart Deleted Successfully");
+			return resultResponse;
+		} catch (Exception e) {
+			resultResponse.setStatus("false");
+			resultResponse.setResult("BirthChart Not Deleted due to no BirthChart exists with id" + birthChartid);
+			return resultResponse;
+		}
+	}
+
+	@Transactional
+	public ResultResponse deleteMultipleBirthChart(DeleteMultipleBirthCharts deleteMultipleBirthCharts) {
+		ResultResponse response = new ResultResponse();
+		String ownerNumber = deleteMultipleBirthCharts.getOwnerNumber();
+		String ownerEmail = deleteMultipleBirthCharts.getOwnerEmail();
+		List<Integer> birthChartIds = deleteMultipleBirthCharts.getBirthChartIds();
+
+		List<BirthChartDetails> birthChartDetailslist = dariAstroCRUD.loadAll(birthChartIds);
+		dariAstroCRUD.methodForDeleteAll(birthChartDetailslist);
+
+		for (Integer birthChartid : birthChartIds) {
+			deleteBirthChart(ownerNumber, ownerEmail, birthChartid);
+		}
+		response.setStatus("true");
+		response.setResult("BirthCharts Deleted Successfully");
+		return response;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<BirthChartDetails> getBirtchartList(String ownerNumber, String ownerEmail) {
+		List<BirthChartDetails> birthChartDetailsList = null;
+		try {
+			birthChartDetailsList = dariAstroRepo.getBirthChartByOwnerNumberOrOwnerEmail(ownerNumber, ownerEmail);
+
+			Collections.sort(birthChartDetailsList, new BirthChartComparator());
+		} catch (Exception e) {
+			return null;
+		}
+		return birthChartDetailsList;
+	}
+
+	@Transactional
+	public BirthChartDetails getBirtchartById(String ownerNumber, String ownerEmail, int id) {
+		BirthChartDetails birthChartDetails = null;
+		try {
+			birthChartDetails = (BirthChartDetails) dariAstroCRUD.getFromDb(BirthChartDetails.class, id);
+		} catch (Exception e) {
+			return null;
+		}
+		return birthChartDetails;
+	}
 
 }

@@ -1,14 +1,29 @@
 package com.dari.astro.repo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Component;
+
+import com.dari.astro.bos.BirthChartDetails;
 
 @Component("dariAstroCRUD")
 public class DariAstroCRUD {
 	
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	Session session = null;
+	Transaction tx = null;
 	
 	public void methodForSave(Object object) {
 		hibernateTemplate.save(object);
@@ -41,5 +56,21 @@ public class DariAstroCRUD {
 		hibernateTemplate.flush();
 		hibernateTemplate.clear();
 	}
+
+	public List<BirthChartDetails> loadAll(List<Integer> birthChartIds) {
+		session = sessionFactory.openSession();
+		List<BirthChartDetails> birthChartDetails = new ArrayList<BirthChartDetails>();
+		List<BirthChartDetails> fetchedSongs = session.createCriteria(BirthChartDetails.class).add(Restrictions.in("id",birthChartIds)).list();
+		birthChartDetails.addAll(fetchedSongs);
+		session.close();
+		 return birthChartDetails;
+	}
+	
+	public void methodForDeleteAll(List<BirthChartDetails> birthChartDetailsList) {
+		hibernateTemplate.deleteAll(birthChartDetailsList);
+		hibernateTemplate.flush();
+		hibernateTemplate.clear();
+	}
+
 
 }
