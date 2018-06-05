@@ -14,4 +14,6 @@ public class DariAstroQueries {
 
 	public static final String GET_BIRTHCHART_BY_OWNERNUMBER_OR_OWNEREMAIL = "from BirthChartDetails WHERE ownerNumber = ? OR ownerEmail = ? ";
 
+	public static final String KP_NATAL_HOROSCOPE_BY_EMAILID_OR_PHONENUMBER = "from KPNatalHoroscope WHERE ownerEmail = ? OR ownerNumber = ? ";
+	
 }

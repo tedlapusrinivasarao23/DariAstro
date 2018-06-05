@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dari.astro.bos.BirthChartDetails;
+import com.dari.astro.bos.KPNatalHoroscope;
 import com.dari.astro.bos.LoginUserDetails;
 import com.dari.astro.bos.LogoutContactDetails;
 import com.dari.astro.bos.SignUpUser;
+import com.dari.astro.bos.TransactionHistory;
+import com.dari.astro.mappers.ChartTransactionMapper;
 import com.dari.astro.mappers.DariTimeMappers;
 import com.dari.astro.mappers.SendEmail;
 import com.dari.astro.mappers.SendSms;
+import com.dari.astro.mappers.TransactionHistoryMapper;
 import com.dari.astro.repo.DariAstroCRUD;
 import com.dari.astro.repo.DariAstroRepo;
 import com.dari.astro.utils.AddMultipleBirthChartDetails;
@@ -28,6 +32,8 @@ import com.dari.astro.utils.LoginUser;
 import com.dari.astro.utils.LogoutResponse;
 import com.dari.astro.utils.LogoutUser;
 import com.dari.astro.utils.ResultResponse;
+import com.dari.astro.utils.TransactionBean;
+import com.dari.astro.utils.TransactionResponse;
 import com.dari.astro.utils.UpdatePassword;
 
 @Service("dariAstroService")
@@ -48,6 +54,12 @@ public class DariAstroService {
 	@Autowired
 	private DariTimeMappers dariTimeMappers;
 
+	@Autowired
+	private ChartTransactionMapper chartTransactionMapper;
+	
+	@Autowired
+	private TransactionHistoryMapper transactionHistoryMapper;
+	
 	@Transactional
 	public ResultResponse signUpUser(SignUpUser signUpUser) {
 
@@ -463,4 +475,78 @@ public class DariAstroService {
 		return birthChartDetails;
 	}
 
+	@Transactional
+	public TransactionResponse kpNatalHoroscopeTrans(String chartName, TransactionBean transactionBean) {
+
+		TransactionResponse transactionResponse = new TransactionResponse();
+		TransactionHistory transactionHistory=null;
+		KPNatalHoroscope kpNatalHoroscope=new KPNatalHoroscope();
+		
+		
+			try {
+				 kpNatalHoroscope= dariAstroRepo.getKPNatalHoroscopeByEmailIdAndPhoneNumber(
+						transactionBean.getOwnerEmail(), transactionBean.getOwnerNumber());
+				if (kpNatalHoroscope.getChartName().equalsIgnoreCase(transactionBean.getChartName())
+						&& transactionBean.getTransaction_Status().equalsIgnoreCase("SUCCESS")) {
+					
+					
+					kpNatalHoroscope.setChartName(transactionBean.getChartName());
+					kpNatalHoroscope.setOwnerEmail(transactionBean.getOwnerEmail());
+					kpNatalHoroscope.setOwnerNumber(transactionBean.getOwnerNumber());
+					kpNatalHoroscope.setTransaction_Id(transactionBean.getTransaction_Id());
+					kpNatalHoroscope.setTransaction_Amount(transactionBean.getTransaction_Amount());
+					kpNatalHoroscope.setTransaction_Status(transactionBean.getTransaction_Status());
+					kpNatalHoroscope.setTransaction_Device_location(transactionBean.getTransaction_Device_location());
+					kpNatalHoroscope.setTransaction_Device_OS(transactionBean.getTransaction_Device_OS());
+					kpNatalHoroscope.setTransaction_Device_ID(transactionBean.getTransaction_Id());
+					kpNatalHoroscope.setTransaction_Device_Model(transactionBean.getTransaction_Device_Model());
+					kpNatalHoroscope.setChartStatus(true);
+					kpNatalHoroscope.setTransaction_Date(dariTimeMappers.getCurrentSystemDateAndTime());
+					kpNatalHoroscope.setSubscription_Date(dariTimeMappers.getCurrentSystemDateAndTime());
+					kpNatalHoroscope.setSubscription_EndDate(dariTimeMappers.getOneYearLaterCurrentSystemDateAndTime());
+					kpNatalHoroscope.setSubscription_Days_Left((int)dariTimeMappers.daysBetween());
+					
+					
+					//kpNatalHoroscope=chartTransactionMapper.getMappedKPNatalHoroscope(kpNatalHoroscope, transactionBean);
+					//kpNatalHoroscope.setId(kpNatalHoroscopeLocal.getId());
+					dariAstroCRUD.methodForUpdate(kpNatalHoroscope);
+					transactionHistory=transactionHistoryMapper.mapTransactionHistory(kpNatalHoroscope, transactionBean);
+					dariAstroCRUD.methodForSave(transactionHistory);
+					transactionResponse.setResult("UPDATED");
+					transactionResponse.setStatus("SUCCESS");
+					return transactionResponse; 
+				}else if(kpNatalHoroscope.getChartName().equalsIgnoreCase(transactionBean.getChartName())
+						&& transactionBean.getTransaction_Status().equalsIgnoreCase("FAILURE")) {
+					kpNatalHoroscope.setTransaction_Date(dariTimeMappers.getCurrentSystemDateAndTime());
+					transactionHistory=transactionHistoryMapper.mapTransactionHistory(kpNatalHoroscope, transactionBean);
+					dariAstroCRUD.methodForSave(transactionHistory);
+					transactionResponse.setResult("SAVED IN HISTORY");
+					transactionResponse.setStatus("SUCCESS");
+					return transactionResponse; 
+				}
+
+			} catch (Exception e) {
+				if (chartName.equalsIgnoreCase(transactionBean.getChartName())
+						&& transactionBean.getTransaction_Status().equalsIgnoreCase("SUCCESS")) {
+					kpNatalHoroscope=chartTransactionMapper.getMappedKPNatalHoroscope(kpNatalHoroscope, transactionBean);
+					dariAstroCRUD.methodForSave(kpNatalHoroscope);
+					transactionHistory=transactionHistoryMapper.mapTransactionHistory(kpNatalHoroscope, transactionBean);
+					dariAstroCRUD.methodForSave(transactionHistory);
+					transactionResponse.setResult("SAVED");
+					transactionResponse.setStatus("SUCCESS");
+					return transactionResponse; 
+				}else if(chartName.equalsIgnoreCase(transactionBean.getChartName())
+						&& transactionBean.getTransaction_Status().equalsIgnoreCase("FAILURE")) {
+					kpNatalHoroscope.setTransaction_Date(dariTimeMappers.getCurrentSystemDateAndTime());
+					transactionHistory=transactionHistoryMapper.mapTransactionHistory(kpNatalHoroscope, transactionBean);
+					dariAstroCRUD.methodForSave(transactionHistory);
+					transactionResponse.setResult("SAVED IN HISTORY");
+					transactionResponse.setStatus("SUCCESS");
+					return transactionResponse; 
+				}
+			}
+			transactionResponse.setResult("IN VALID STATUS");
+			transactionResponse.setStatus("FAIL");
+			return transactionResponse; 
+	}
 }

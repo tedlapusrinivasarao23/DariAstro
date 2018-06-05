@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dari.astro.bos.BirthChartDetails;
+import com.dari.astro.bos.KPNatalHoroscope;
 import com.dari.astro.bos.LoginUserDetails;
 import com.dari.astro.bos.SignUpUser;
 import com.dari.astro.queries.DariAstroQueries;
@@ -108,5 +109,27 @@ public class DariAstroRepo {
 		hibernateTemplate.flush();
 		hibernateTemplate.clear();
 		return birthChartDetailsList;
+	}
+	
+	public SignUpUser getKPEmailIdAndPhoneNumberForUpdatePassword(UpdatePassword updatePassword) {
+
+		SignUpUser signUpUsertList = (SignUpUser) hibernateTemplate
+				.find(DariAstroQueries.SIGNUP_QUERY_BY_EMAILID_OR_PHONENUMBER,
+						new Object[] { updatePassword.getEmailId(), updatePassword.getPhoneNumber() })
+				.get(0);
+		hibernateTemplate.flush();
+		hibernateTemplate.clear();
+		return signUpUsertList;
+	}
+
+	
+	public KPNatalHoroscope getKPNatalHoroscopeByEmailIdAndPhoneNumber(String ownerEmail, String ownerNumber) {
+
+		KPNatalHoroscope kpNatalHoroscope = (KPNatalHoroscope) hibernateTemplate
+				.find(DariAstroQueries.KP_NATAL_HOROSCOPE_BY_EMAILID_OR_PHONENUMBER,
+						new Object[] { ownerEmail, ownerNumber })
+				.get(0);
+		
+		return kpNatalHoroscope;
 	}
 }
