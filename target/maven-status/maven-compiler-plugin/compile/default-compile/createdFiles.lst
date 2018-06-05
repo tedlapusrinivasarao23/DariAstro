@@ -1,3 +1,4 @@
+com\dari\astro\bos\TransactionHistory.class
 com\dari\astro\mappers\SendEmail$1.class
 com\dari\astro\mappers\SendSms.class
 com\dari\astro\queries\DariAstroQueries.class
@@ -6,6 +7,8 @@ com\dari\astro\utils\BirthChartResultResponse.class
 com\dari\astro\repo\DariAstroRepo.class
 com\dari\astro\config\WebMvcConfig.class
 com\dari\astro\utils\UpdatePassword.class
+com\dari\astro\utils\TransactionBean.class
+com\dari\astro\bos\KPNatalHoroscope.class
 com\dari\astro\controller\DariAstroController.class
 com\dari\astro\mappers\SendEmail.class
 com\dari\astro\utils\LogoutResponse.class
@@ -13,8 +16,11 @@ com\dari\astro\init\ApplicationInitializer.class
 com\dari\astro\bos\LogoutContactDetails.class
 com\dari\astro\bos\SignUpUser.class
 com\dari\astro\utils\LogoutUser.class
+com\dari\astro\utils\TransactionResponse.class
 com\dari\astro\bos\BirthChartDetails.class
 com\dari\astro\config\RootConfigContext.class
+com\dari\astro\mappers\ChartTransactionMapper.class
+com\dari\astro\mappers\TransactionHistoryMapper.class
 com\dari\astro\utils\LoginUser.class
 com\dari\astro\repo\DariAstroCRUD.class
 com\dari\astro\utils\AddMultipleBirthChartDetails.class

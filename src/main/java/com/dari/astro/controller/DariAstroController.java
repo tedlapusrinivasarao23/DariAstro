@@ -23,6 +23,8 @@ import com.dari.astro.utils.LoginUser;
 import com.dari.astro.utils.LogoutResponse;
 import com.dari.astro.utils.LogoutUser;
 import com.dari.astro.utils.ResultResponse;
+import com.dari.astro.utils.TransactionBean;
+import com.dari.astro.utils.TransactionResponse;
 import com.dari.astro.utils.UpdatePassword;
 
 @RestController
@@ -139,4 +141,18 @@ public class DariAstroController {
 
 	}
 
+	@RequestMapping(value = "/Trans/KPNatalHoroscope/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpNatalHoroscopeTrans(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpNatalHoroscopeTrans(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
 }
