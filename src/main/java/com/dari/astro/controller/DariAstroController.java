@@ -155,4 +155,208 @@ public class DariAstroController {
 		return transactionResponse;
 	
 	}
+	
+	
+	@RequestMapping(value = "/Trans/KPHoraryHoroscope/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpHoraryHoroscope(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpHoraryHoroscope(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	@RequestMapping(value = "/Trans/KPNatalHoroscopePredictions/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpNatalHoroscopePredictions(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpNatalHoroscopePredictions(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	@RequestMapping(value = "/Trans/KPHoraryHoroscopePredictions/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpHoraryHoroscopePredictions(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpHoraryHoroscopePredictions(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	@RequestMapping(value = "/Trans/KPEphemeris/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpEphemeris(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpEphemeris(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	
+	@RequestMapping(value = "/Trans/KPMuhurta/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpMuhurta(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpMuhurta(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	
+	@RequestMapping(value = "/Trans/KPHoroscopeMatching/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse kpHoroscopeMatching(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.kpHoroscopeMatching(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	
+	
+	@RequestMapping(value = "/Trans/VedicHoroscope/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse vedicHoroscope(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.vedicHoroscope(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	
+	@RequestMapping(value = "/Trans/VedicHoroscopePredictions/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse vedicHoroscopePredictions(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.vedicHoroscopePredictions(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	@RequestMapping(value = "/Trans/VedicMuhurta/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse vedicMuhurta(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.vedicMuhurta(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	@RequestMapping(value = "/Trans/VedicPanchanga/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse vedicPanchanga(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.vedicPanchanga(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	
+	@RequestMapping(value = "/Trans/HoroscopeMatching/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse horoscopeMatching(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.horoscopeMatching(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	@RequestMapping(value = "/Trans/MundaneAstrology/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse mundaneAstrology(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.mundaneAstrology(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
+	
+	@RequestMapping(value = "/Trans/Varshphal/{chartName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TransactionResponse varshphal(@PathVariable String chartName,
+			@RequestBody TransactionBean transactionBean) {
+		TransactionResponse  transactionResponse=new TransactionResponse();
+		if(chartName.equalsIgnoreCase(transactionBean.getChartName())) {
+			transactionResponse = dariAstroService
+				.varshphal(chartName,transactionBean);
+			return transactionResponse;
+		}
+		transactionResponse.setResult("INVALID CHART NAME");
+		transactionResponse.setStatus("FALSE");
+		return transactionResponse;
+	
+	}
+	
 }
