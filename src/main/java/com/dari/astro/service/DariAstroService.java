@@ -390,6 +390,7 @@ public class DariAstroService {
 	public BirthChartResultResponse editBirthChart(BirthChartDetails birthChartDetails) {
 		BirthChartResultResponse birthChartResultResponse = new BirthChartResultResponse();
 		try {
+			birthChartDetails.setBirthChartUpdatedDate(dariTimeMappers.getCurrentSystemDateAndTime());
 			dariAstroCRUD.methodForUpdate(birthChartDetails);
 			birthChartResultResponse.setStatus("true");
 			birthChartResultResponse.setResult("BirthChart Updated Sucessfully");
@@ -421,7 +422,7 @@ public class DariAstroService {
 			}
 		}
 		birthChartResultResponse.setStatus("true");
-		birthChartResultResponse.setResult("BirthChart Updated Sucessfully");
+		birthChartResultResponse.setResult("BirthCharts Updated Sucessfully");
 		birthChartResultResponse.setBirthChartDetailsList(birthChartDetailsListNew);
 		birthChartResultResponse.setUnEditedBirthCharts(unEditedBirthCharts);
 		return birthChartResultResponse;
