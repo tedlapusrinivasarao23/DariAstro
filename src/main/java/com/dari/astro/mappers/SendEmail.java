@@ -57,7 +57,7 @@ public class SendEmail {
 			message.setFrom(new InternetAddress(from,"NoReply-DariAstro"));
 			message.setReplyTo(InternetAddress.parse(from, false));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			message.setSubject("NGC Password Alert");
+			message.setSubject("DARI Alert");
 			message.setText(messageInData +newPassword);
 
 			Transport.send(message); 

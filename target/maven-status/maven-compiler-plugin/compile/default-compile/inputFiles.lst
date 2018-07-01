@@ -1,6 +1,7 @@
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\KPMuhurta.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\Events.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\KPHoroscopeMatching.java
+E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\repo\GetAllRepo.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\KPNatalHoroscope.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\repo\DariAstroRepo.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\repo\DariAstroCRUD.java
@@ -42,5 +43,6 @@ E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\LogoutResponse.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\bos\HoroscopeMatching.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\TransactionBean.java
+E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\service\DariSubscriptionJobScheduler.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\BirthChartComparator.java
 E:\OpenSource\DARI_ASTRO_OPEN\CODE\DariAstro\src\main\java\com\dari\astro\utils\UpdatePassword.java
